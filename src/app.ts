@@ -16,7 +16,7 @@ export type App = {
 
 export const initApp = async (config: Config, logger: pino.Logger): Promise<App> => {
   const app = express();
-  app.use(express.static(path.join(__dirname, "..", "public")));
+
   app.set("trust proxy", true);
   app.use((req, res, next) => {
     const start = new Date().getTime();
@@ -88,6 +88,7 @@ export const initApp = async (config: Config, logger: pino.Logger): Promise<App>
     res.status(500);
     res.json({ msg: "Something went wrong" });
   });
+  app.use(express.static(path.join(__dirname, "..", "public")));
 
   return {
     requestListener: app,
